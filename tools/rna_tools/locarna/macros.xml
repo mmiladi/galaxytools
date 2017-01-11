@@ -114,6 +114,16 @@
                 label="Maximal ratio of #base pairs divided by sequence length (default: no effect)" /> 
     </xml>
 
+    <xml name="common_heuristic_parameters_sparse">
+        <param  name="prob_unpaired_in_loop_threshold" argument="prob-unpaired-in-loop-threshold" type="float" value="0.00005" 
+                min="0.0" max="0.2"
+                label="Minimal / cutoff threshold for prob-unpaired-in-loop" /> 
+
+        <param  name="prob_basepair_in_loop_threshold" argument="prob-basepair-in-loop-threshold" type="float" value="0.0001" 
+                min="0.0" max="0.2"
+                label="Minimal / cutoff threshold for prob-basepair-in-loop-threshold" />       
+    </xml>
+    
     <xml name="alifold_consensus_parameter">
         <param  name="alifold_consensus_dp" argument="alifold-consensus-dp" 
                 type="boolean" checked="false" 
@@ -166,9 +176,10 @@
 
     <xml name="citations">
         <citations>
-            <citation
-            type="doi">10.1371/journal.pcbi.0030065</citation>
+            <citation type="doi">10.1371/journal.pcbi.0030065</citation>
             <citation type="doi">10.1261/rna.029041.111</citation>
+            <citation type="doi">10.1093/bioinformatics/btv185</citation>
+
         </citations>
     </xml>
 

@@ -75,7 +75,20 @@
     #if float($Heuristics.max_bps_length_ratio) != 0.0
         --max-bps-length-ratio $Heuristics.max_bps_length_ratio
     #end if
+
+    #if str($alignment_mode.alignment_mode_selector) == "global_locarna"
+        #if str($alignment_mode.free_endgaps) != "----"
+            --free-endgaps $alignment_mode.free_endgaps
+        #end if
     
+    ## -------------------- heuristic parameters SPARSE
+    #if str($alignment_mode.alignment_mode_selector) == "sparse"
+        -prob-unpaired-in-loop-threshold $Heuristics.prob_unpaired_in_loop_threshold
+        -prob-basepair-in-loop-threshold $Heuristics.prob_basepair_in_loop_threshold
+
+    #end if
+    
+
     ## -------------------- other parameters
         
     $Constraint.lonely_pairs
@@ -132,7 +145,7 @@
                 <option value="global_locarna">Global alignment
                 (LocARNA)</option>
                 <option value="local_locarna">Local alignment (LocARNA)</option>
-                <option value="sparse">Global alignment (SPARSE)</option>
+                <option value="sparse">Fast global alignment (SPARSE)</option>
                 <option value="structure_sequence_local_locarna">
                     Structure and sequence local alignment (LocARNA)
                 </option>
@@ -158,7 +171,12 @@
             </when>
             <when value="local_locarna">
             </when>
-            <when value="sparse" />
+            <when value="sparse">                    
+            <section name="Heuristics-sparse" title="Heuristic parameters for SPARSE">
+               <expand macro="common_heuristic_parameters_sparse" />
+            </section>
+            </when>
+
             <when value="structure_sequence_local_locarna" />
             <when value="structure_local_locarna" />
         </conditional>
