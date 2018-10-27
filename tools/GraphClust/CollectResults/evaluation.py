@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 import glob
 from os import system
 import re
@@ -12,7 +12,7 @@ def sh(script):
 
 fasta_dir = sys.argv[1]
 results_dir = sys.argv[2]
-dataNames = os.path.join(fasta_dir,"data.names")
+dataNames = fasta_dir+"/data.names"
 
 listOfClusters = []
 listOfHeaders = []
@@ -54,7 +54,7 @@ for singleFile in sorted(cluster_seqs_stats_files):
 numberOfClusters += 1  # 1 cluster for all unassigned seqs
 ignoreBlackList = False
 with open(dataNames, "r") as names:
-    for line in names:
+    for line in names.readlines():
         splits = line.split() 
         fullUniqeId = splits[3]
         fullHeader = ''
@@ -72,9 +72,9 @@ with open(dataNames, "r") as names:
 
 toWrite = ""
 for i in range(len(listOfClusters)):
-    toWrite += "%s\t%s\n" % (listOfHeaders[i], listOfClusters[i]) 
- 
-with open(os.path.join(results_dir,"fullTab.tabular"), "w") as full:
+    toWrite += listOfHeaders[i] + "\t" + listOfClusters[i] + '\n'
+
+with open(results_dir+"/fullTab.tabular", "w") as full:
     full.write(toWrite)
 
 
@@ -88,11 +88,7 @@ if len(listOfHeaders) > 1: # and  pattern.match(str(listOfHeaders[0])):
     adjusted_mutual_info_score = metrics.adjusted_mutual_info_score(listOfHeaders, listOfClusters)
     v_measure_score = metrics.v_measure_score(listOfHeaders, listOfClusters)
 
-    toWrite = "completeness_score : {}\n".format(completeness_score) 
-    toWrite += "homogeneity_score : {}\n".format(homogeneity_score) 
-    toWrite += "adjusted_rand_score : {}\n".format(adjusted_rand_score)
-    toWrite += "adjusted_mutual_info_score : {}\n".format(adjusted_mutual_info_score)
-    toWrite += "v_measure_score : {}\n".format(v_measure_score)
+    toWrite = "completeness_score : " + str(completeness_score) + "\n" + "homogeneity_score : " + str(homogeneity_score) + "\n" + "adjusted_rand_score : " +str(adjusted_rand_score)  + "\n" + "adjusted_mutual_info_score : " + str(adjusted_mutual_info_score)+ "\n" + "v_measure_score : " + str(v_measure_score)
 
 
 else:
